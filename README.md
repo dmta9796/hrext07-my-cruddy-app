@@ -13,3 +13,33 @@ Create Read Update and Delete framework using JS
 
 ### Advanced Reqs
 - [ ] Item that I added goes here...
+
+
+
+
+project ideas
+- add something to a globe api
+- idea board
+- sentiment analysis. 
+- music lyrics analyzer (guess genre of music?)
+- flashcards
+- recipe cookbook. (append a rating to recipe)
+- 
+-
+-
+-
+-
+picked idea:
+
+requirements for the idea to work
+-[]
+-[]
+-[]
+-[]
+-[]
+-[]
+nice to haves
+-[]
+-[]
+-[]
+-[]
