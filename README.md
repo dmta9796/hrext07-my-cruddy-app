@@ -33,18 +33,18 @@ project ideas
 -
 -
 -
-picked idea:
+picked idea: storyboard management (this sounds like a fun use of crud)
 
 requirements for the idea to work
--[]
--[] 
--[]
--[]
--[]
--[]
--[]
+-[] create a place or character.
+-[] update a place or character. 
+-[] store information about characters
+-[] store information about places
+-[] access information (needs specific search)
+-[] search for characters or places. 
+-[] UI-UX (I would think a character and place would need different UI's);
 nice to haves
--[]
--[]
+-[]have the ability to search for vague terms like cities or a group of people. 
+-[]maps 
 -[]
 -[]
