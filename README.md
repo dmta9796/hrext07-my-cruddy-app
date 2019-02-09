@@ -18,14 +18,18 @@ Create Read Update and Delete framework using JS
 
 
 project ideas
-- add something to a globe api
+- add something to a globe map
 - idea board
 - sentiment analysis. 
 - music lyrics analyzer (guess genre of music?)
 - flashcards
 - recipe cookbook. (append a rating to recipe)
+- data visualizer of some sort.
+	- would need a dataset api. 
+	- could visualize weather perhaps.  
+	-
+- storyboard management for worldbuilding?
 - 
--
 -
 -
 -
@@ -33,6 +37,7 @@ picked idea:
 
 requirements for the idea to work
 -[]
+-[] 
 -[]
 -[]
 -[]
