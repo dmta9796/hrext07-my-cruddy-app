@@ -42,7 +42,8 @@ requirements for the idea to work
 -[] store information about places
 -[] access information (needs specific search)
 -[] search for characters or places. 
--[] UI-UX (I would think a character and place would need different UI's);
+-[] UI-UX (I would think a character and place would need different UI's)
+-[] create a world or load a previous world.
 nice to haves
 -[]have the ability to search for vague terms like cities or a group of people. 
 -[]maps 
