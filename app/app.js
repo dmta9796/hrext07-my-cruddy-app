@@ -10,19 +10,30 @@ $(document).ready(function(){
   //var keyData = 'ourKey'; // going to need to make this dynamic?
 
 
-  $('.btn-add').on('click', function(e){
+  $('.btn-add-world').on('click', function(e){
     //gconsole.log(e);
     var keyData = $('.create-region-make').val();
     var valueData = {}
-    // write to db
     localStorage.setItem(keyData, valueData);
-    // read from db
     var displayText = keyData + ' | ' + localStorage.getItem(keyData);
-    // this only displays the last one? might want to switch to html
-    // and append a div
-    // <div class="display-data-item" data-keyValue="keyData">valueData</div>
-    // if you use backticks ` you can use ${templateLiterals}
-    // TODO make this vars make sense across the app
+    console.log(displayText);
+    $('.container-region').html('<div class="display-data-item" data-keyValue="'+ keyData +'">'+keyData+'</div>');
+    $('.input-key').val('');
+    $('.input-value').val('');
+  });
+  
+  $('.btn-add-region').on('click', function(e){
+    console.log(e);
+    var regionName = $('.create-region-name').val();
+    var regionDesc = $('.create-region-desc').val();
+    console.log(regionName);
+    // write to db
+    var worldKey="asdf"
+    var obj=localStorage.getItem(worldkey);
+    obj[regionName]=regionDesc;
+
+    localStorage.setItem(regionName, obj);
+    var displayText = worldKey + ' | ' + localStorage.getItem(worldKey);
     console.log(displayText);
     $('.container-region').html('<div class="display-data-item" data-keyValue="'+ keyData +'">'+keyData+'</div>');
     $('.input-key').val('');
@@ -31,14 +42,14 @@ $(document).ready(function(){
 
 
   $('.container-region').on('click', '.display-data-item', function(e){
-    console.log(e.currentTarget.dataset.keyvalue);
+    //console.log(e.currentTarget.dataset.keyvalue);
     var keyData = e.currentTarget.dataset.keyvalue;
-    console.log($(keyData).children());
+    //console.log($(keyData).children());
     //if(keyData.contents())
 
     var name=    "<input type=\"text\" class=\"create-region-name\" placeholder=\"enter region name\">"
     var desc=    "<input type=\"text\" class=\"create-region-desc\" placeholder=\"enter region description\">"
-    var submit="<button class=\"btn-add\">Make a Region</button>"
+    var submit="<button class=\"btn-add-region\">Make a Region</button>"
     $('.container-region').append("<div class=\"container-region-make\">"+name+desc+submit+"</div>");
     //localStorage.removeItem(keyData);
     //$('.container-data').text('');
