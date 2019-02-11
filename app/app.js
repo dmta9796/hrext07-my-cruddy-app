@@ -11,8 +11,8 @@ $(document).ready(function(){
 
 
   $('.btn-add').on('click', function(e){
-    console.log(e);
-    var keyData = $('.create-world').val();
+    //gconsole.log(e);
+    var keyData = $('.create-region-make').val();
     var valueData = {}
     // write to db
     localStorage.setItem(keyData, valueData);
@@ -23,26 +23,35 @@ $(document).ready(function(){
     // <div class="display-data-item" data-keyValue="keyData">valueData</div>
     // if you use backticks ` you can use ${templateLiterals}
     // TODO make this vars make sense across the app
-    $('.container-data').html('<div class="display-data-item" data-keyValue="'+ keyData +'">'+keyData+'</div>');
+    console.log(displayText);
+    $('.container-region').html('<div class="display-data-item" data-keyValue="'+ keyData +'">'+keyData+'</div>');
     $('.input-key').val('');
     $('.input-value').val('');
   });
 
 
-  // update db
-    // need to expand when  more than 1 item is added
-
-  // delete item
-  $('.container-data').on('click', '.display-data-item', function(e){
+  $('.container-region').on('click', '.display-data-item', function(e){
     console.log(e.currentTarget.dataset.keyvalue);
     var keyData = e.currentTarget.dataset.keyvalue;
-    localStorage.removeItem(keyData);
-    $('.container-data').text('');
+    console.log($(keyData).children());
+    //if(keyData.contents())
+
+    var name=    "<input type=\"text\" class=\"create-region-name\" placeholder=\"enter region name\">"
+    var desc=    "<input type=\"text\" class=\"create-region-desc\" placeholder=\"enter region description\">"
+    var submit="<button class=\"btn-add\">Make a Region</button>"
+    $('.container-region').append("<div class=\"container-region-make\">"+name+desc+submit+"</div>");
+    //localStorage.removeItem(keyData);
+    //$('.container-data').text('');
   });
+
   // delete all?
   $('.btn-clear').click(function(){
     localStorage.clear();
-    $('.container-data').text('');
+    $('.container-world').text('');
   });
 
 });
+
+
+//two types of containers needed
+// character and world/region/town/city
