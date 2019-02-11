@@ -12,8 +12,8 @@ $(document).ready(function(){
 
   $('.btn-add').on('click', function(e){
     console.log(e);
-    var keyData = $('.input-key').val();
-    var valueData = $('.input-value').val();
+    var keyData = $('.create-world').val();
+    var valueData = {}
     // write to db
     localStorage.setItem(keyData, valueData);
     // read from db
@@ -23,7 +23,7 @@ $(document).ready(function(){
     // <div class="display-data-item" data-keyValue="keyData">valueData</div>
     // if you use backticks ` you can use ${templateLiterals}
     // TODO make this vars make sense across the app
-    $('.container-data').html('<div class="display-data-item" data-keyValue="'+ keyData +'">'+valueData+'</div>');
+    $('.container-data').html('<div class="display-data-item" data-keyValue="'+ keyData +'">'+keyData+'</div>');
     $('.input-key').val('');
     $('.input-value').val('');
   });
