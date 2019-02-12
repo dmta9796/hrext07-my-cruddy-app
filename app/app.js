@@ -10,34 +10,48 @@ $(document).ready(function(){
   //var keyData = 'ourKey'; // going to need to make this dynamic?
 
 
-  $('.btn-add-world').on('click', function(e){
-    //gconsole.log(e);
-    var keyData = $('.create-region-make').val();
-    var valueData = {}
-    localStorage.setItem(keyData, valueData);
-    var displayText = keyData + ' | ' + localStorage.getItem(keyData);
-    console.log(displayText);
-    $('.container-region').html('<div class="display-data-item" data-keyValue="'+ keyData +'">'+keyData+'</div>');
-    $('.input-key').val('');
-    $('.input-value').val('');
-  });
+  // $('.btn-add-place').on('click', function(e){
+  //   //gconsole.log(e);
+  //   var keyData = $('.create-region-make').val();
+  //   var valueData = {}
+  //   localStorage.setItem(keyData, valueData);
+  //   var displayText = keyData + ' | ' + localStorage.getItem(keyData);
+  //   console.log(displayText);
+  //   $('.container-region').html('<div class="display-data-item" data-keyValue="'+ keyData +'">'+keyData+'</div>');
+  //   $('.input-key').val('');
+  //   $('.input-value').val('');
+  // });
   
-  $('.btn-add-region').on('click', function(e){
+  $('.container-main').on('click','.btn-add-place', function(e){
     console.log(e);
-    var regionName = $('.create-region-name').val();
-    var regionDesc = $('.create-region-desc').val();
-    console.log(regionName);
-    // write to db
-    var worldKey="asdf"
-    var obj=localStorage.getItem(worldkey);
-    obj[regionName]=regionDesc;
+    var keyData = $('.create-region-make').val();
+    var valueData = localStorage.getItem(keyData)
+    if(Object.is(valueData,null)){
+      valueData={}
+      localStorage.setItem(keyData, JSON.stringify(valueData));
+      var displayText = keyData + ' | ' + localStorage.getItem(keyData);
+      console.log(displayText);
+      $('.container-region').html('<div class="display-data-item" data-keyValue="'+ keyData +'">'+keyData+'</div>');
+      $('.input-key').val('');
+      $('.input-value').val('');
+    }
+    else{
+      var regionName = $('.create-region-name').val();
+      var regionDesc = $('.create-region-desc').val();
+      console.log(regionName);
+      // write to db
+      var worldKey="asdf";
+      var obj=JSON.parse(localStorage.getItem(worldKey));
+      obj[regionName]=regionDesc;
+      console.log(regionName,Object.entries(obj));
 
-    localStorage.setItem(regionName, obj);
-    var displayText = worldKey + ' | ' + localStorage.getItem(worldKey);
-    console.log(displayText);
-    $('.container-region').html('<div class="display-data-item" data-keyValue="'+ keyData +'">'+keyData+'</div>');
-    $('.input-key').val('');
-    $('.input-value').val('');
+      localStorage.setItem(worldKey, JSON.stringify(obj));
+      var displayText = worldKey + ' | ' + obj[regionName];
+      console.log(displayText);
+      $('.container-region').html('<div class="display-data-item" data-keyValue="'+ worldKey +'">'+worldKey+'</div>');
+      $('.input-key').val('');
+      $('.input-value').val('');
+    }
   });
 
 
@@ -49,8 +63,11 @@ $(document).ready(function(){
 
     var name=    "<input type=\"text\" class=\"create-region-name\" placeholder=\"enter region name\">"
     var desc=    "<input type=\"text\" class=\"create-region-desc\" placeholder=\"enter region description\">"
-    var submit="<button class=\"btn-add-region\">Make a Region</button>"
-    $('.container-region').append("<div class=\"container-region-make\">"+name+desc+submit+"</div>");
+    var submit=  "<button class=\"btn-add-place\">Make a Region</button>";
+    //$abutton=$("<div class=\"container-region-make\">"+name+desc+submit+"</div>");
+    //$('.btn-add-region').html(submit).appendTo(".container-region");
+    $(submit).appendTo(".container-region-make");
+    $('.container-region').append($("<div class=\"container-region-make\">"+name+desc+submit+"</div>"));
     //localStorage.removeItem(keyData);
     //$('.container-data').text('');
   });
