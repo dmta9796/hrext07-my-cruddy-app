@@ -23,12 +23,13 @@ $(document).ready(function(){
   // });
   
   $('.container-main').on('click','.btn-add-place', function(e){
-    console.log(e);
+    //console.log(e);
     var keyData = $('.create-region-make').val();
-    var valueData = localStorage.getItem(keyData)
+    var valueData = localStorage.getItem(keyData);
     //console.log(e.currentTarget.parentElement.className==="container-form");
     if(e.currentTarget.parentElement.className==="container-form"){//Object.is(valueData,null)){
-      valueData={}
+      //console.log(valueData);
+        valueData={}
       localStorage.setItem(keyData, JSON.stringify(valueData));
       var displayText = keyData + ' | ' + localStorage.getItem(keyData);
       //console.log(displayText);
@@ -57,9 +58,29 @@ $(document).ready(function(){
     }
   });
 
-  $('.container-region').on('mouseenter', '.display-data-item', function(e){
-    $("container-region").append()
-  })
+  // $('.container-region').on('mouseenter', '.display-data-item', function(e){
+  //   $("container-region").append()
+  // })
+
+  $('.container-main').on("click",".btn-update",function(e){
+    console.log(e.currentTarget.parentElement.className);
+    var parentClass= e.currentTarget.parentElement.className;
+    if(parentClass==="container-region-update"){
+      var prev=$(".update-region-prev").val();
+      var next=$(".update-region-next").val();
+      var obj=localStorage.getItem(prev);
+      localStorage.removeItem(prev);
+      localStorage.setItem(next,obj);
+      $(".container-region-update").remove();
+    }
+    else{
+      $(".container-region-update").remove();
+      var prev=    "<input type=\"text\" class=\"update-region-prev\" placeholder=\"enter old region name\">"
+      var next=    "<input type=\"text\" class=\"update-region-next\" placeholder=\"enter new region name\">"
+      var submit=  "<button class=\"btn-update\">Make a Region</button>";
+      $('.container-region').append($("<div class=\"container-region-update\">"+prev+next+submit+"</div>"));
+    }
+  });
 
 
   $('.container-region').on('click', '.display-data-item', function(e){
@@ -75,12 +96,22 @@ $(document).ready(function(){
     //$abutton=$("<div class=\"container-region-make\">"+name+desc+submit+"</div>");
     //$('.btn-add-region').html(submit).appendTo(".container-region");
     $(submit).appendTo(".container-region-make");
+    $(".container-region-make").remove();
     $('.container-region').append($("<div class=\"container-region-make\">"+name+desc+submit+"</div>"));
     //localStorage.removeItem(keyData);
     //$('.container-data').text('');
   });
 
-  // delete world
+  // $(".container-main").on("click",".btn-update",function(e){
+  //   // add a menu to look for a world and rename the world.
+  //   $(".container-region-update").remove();
+  //   var prev=    "<input type=\"text\" class=\"update-region-prev\" placeholder=\"enter old region name\">"
+  //   var next=    "<input type=\"text\" class=\"update-region-next\" placeholder=\"enter new region name\">"
+  //   var submit=  "<button class=\"btn-update\">Make a Region</button>";
+  //   $('.container-region').append($("<div class=\"container-region-update\">"+prev+next+submit+"</div>"));
+  //});
+
+
   $('.btn-delete').click(function(e){
     var keyData = $('.create-region-make').val();
     localStorage.removeItem(keyData);
@@ -106,6 +137,11 @@ $(document).ready(function(){
 //day 2 
 // goal: have update,delete,read for world and individual regions
 // 1) C.R.U.D. for world 
-//  I)   edit create to not override world.
+//  I)   edit create to not override world. (check)
 //  II)  read for world (check)
 //  III) delete a world (check)
+
+// 2) regions
+//      I)    access to regions (check)
+//      II)   delete a region
+//      III)  update a region
