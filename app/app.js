@@ -40,7 +40,8 @@ $(document).ready(function(){
       var regionDesc = $('.create-region-desc').val();
       console.log(regionName);
       // write to db
-      var worldKey="asdf";
+      console.log(e.currentTarget.parentElement.parentElement)
+      var worldKey=e.currentTarget.parentElement.parentElement.childNodes[0].dataset.keyvalue;   //fetch the world
       var obj=JSON.parse(localStorage.getItem(worldKey));
       obj[regionName]=regionDesc;
       console.log(regionName,Object.entries(obj));
@@ -48,7 +49,7 @@ $(document).ready(function(){
       localStorage.setItem(worldKey, JSON.stringify(obj));
       var displayText = worldKey + ' | ' + obj[regionName];
       console.log(displayText);
-      $('.container-region').html('<div class="display-data-item" data-keyValue="'+ worldKey +'">'+worldKey+'</div>');
+      $('.container-region').html('<div class="display-data-item" data-keyValue="'+ worldKey+'">'+worldKey+'</div>');
       $('.input-key').val('');
       $('.input-value').val('');
     }
@@ -63,6 +64,7 @@ $(document).ready(function(){
 
     var name=    "<input type=\"text\" class=\"create-region-name\" placeholder=\"enter region name\">"
     var desc=    "<input type=\"text\" class=\"create-region-desc\" placeholder=\"enter region description\">"
+    var type=    "<input type=\"text\" class=\"create-region-type\" placeholder=\"enter region type\">"
     var submit=  "<button class=\"btn-add-place\">Make a Region</button>";
     //$abutton=$("<div class=\"container-region-make\">"+name+desc+submit+"</div>");
     //$('.btn-add-region').html(submit).appendTo(".container-region");
@@ -72,7 +74,7 @@ $(document).ready(function(){
     //$('.container-data').text('');
   });
 
-  // delete all?
+  // delete world
   $('.btn-clear').click(function(){
     localStorage.clear();
     $('.container-world').text('');
