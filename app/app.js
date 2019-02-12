@@ -4,6 +4,13 @@ interact with DOM
 interact with localstorage
 
  */
+//helper function to fetch data from object
+ var fetchelements=function(data){
+  //onsole.log(data);
+  for(item of Object.keys(data)){
+    $(".container-region").append("<div class=display-data-item>"+item+"</div>")
+  }
+ }
 
 $(document).ready(function(){
   // this is where we jquery
@@ -81,6 +88,15 @@ $(document).ready(function(){
       $('.container-region').append($("<div class=\"container-region-update\">"+prev+next+submit+"</div>"));
     }
   });
+  $('.container-main').on("click",".btn-select",function(e){
+    var keyData = $('.create-region-make').val();
+    var data=JSON.parse(localStorage.getItem(keyData))
+    if(!Object.is(data,null)){
+      $(".container-region").append("<div class=display-data-item>"+keyData+"</div>")
+      fetchelements(data);
+    }
+
+  });
 
 
   $('.container-region').on('click', '.display-data-item', function(e){
@@ -101,17 +117,6 @@ $(document).ready(function(){
     //localStorage.removeItem(keyData);
     //$('.container-data').text('');
   });
-
-  // $(".container-main").on("click",".btn-update",function(e){
-  //   // add a menu to look for a world and rename the world.
-  //   $(".container-region-update").remove();
-  //   var prev=    "<input type=\"text\" class=\"update-region-prev\" placeholder=\"enter old region name\">"
-  //   var next=    "<input type=\"text\" class=\"update-region-next\" placeholder=\"enter new region name\">"
-  //   var submit=  "<button class=\"btn-update\">Make a Region</button>";
-  //   $('.container-region').append($("<div class=\"container-region-update\">"+prev+next+submit+"</div>"));
-  //});
-
-
   $('.btn-delete').click(function(e){
     var keyData = $('.create-region-make').val();
     localStorage.removeItem(keyData);
