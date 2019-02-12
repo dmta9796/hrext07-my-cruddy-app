@@ -4,6 +4,20 @@ interact with DOM
 interact with localstorage
 
  */
+//helper functions to abstract database get and set
+
+var putdata=function(key,obj){
+  localStorage.setItem(key,JSON.stringify(obj));
+}
+var getdata=function(key){
+  return JSON.parse(localStorage.getItem(key))
+}
+
+var removedata=function(key){
+  localStorage.removeItem(key);
+}
+
+
 //helper function to fetch data from object
  var fetchelements=function(data,keyData){
   //onsole.log(data);
@@ -17,11 +31,11 @@ $(document).ready(function(){
   $('.container-main').on('click','.btn-add-place', function(e){
     //console.log(e);
     var keyData = $('.create-region-make').val();
-    var valueData = localStorage.getItem(keyData);
+    var valueData = getdata(keyData); //localStorage.getItem(keyData);
     if(e.currentTarget.parentElement.className==="container-form"){
         valueData={}
-      localStorage.setItem(keyData, JSON.stringify(valueData));
-      var displayText = keyData + ' | ' + localStorage.getItem(keyData);
+      putdata(keyData,valueData);//localStorage.setItem(keyData, JSON.stringify(valueData));
+      var displayText = keyData + ' | ' + getdata(keyData);//localStorage.getItem(keyData);
       $('.container-region').html('<div class="display-data-item" data-keyValue="'+ keyData +'">'+keyData+'</div>');
       $('.input-key').val('');
       $('.input-value').val('');
@@ -31,11 +45,11 @@ $(document).ready(function(){
       var regionDesc = $('.create-region-desc').val();
       //console.log(e.currentTarget.parentElement.parentElement.childNodes[0])
       worldKey=e.currentTarget.parentElement.parentElement.childNodes[0].dataset.keyvalue;   //fetch the world key value
-      var obj=JSON.parse(localStorage.getItem(worldKey));
+      var obj=getdata(worldKey);//JSON.parse(localStorage.getItem(worldKey));
       obj[regionName]=regionDesc;
       console.log(regionName,Object.entries(obj));
 
-      localStorage.setItem(worldKey, JSON.stringify(obj));
+      putdata(worldKey,obj);//localStorage.setItem(worldKey, JSON.stringify(obj));
       var displayText = worldKey + ' | ' + obj[regionName];
       console.log(displayText);
       $(".container-region-make").remove();
@@ -50,16 +64,16 @@ $(document).ready(function(){
     if(parentClass==="container-region-update"){
       var prev=$(".update-region-prev").val();
       var next=$(".update-region-next").val();
-      var obj=localStorage.getItem(prev);
-      localStorage.removeItem(prev);
-      localStorage.setItem(next,obj);
+      var obj=getdata(prev);//localStorage.getItem(prev);
+      removedata(prev);// localStorage.removeItem(prev);
+      putdata(next,obj);//localStorage.setItem(next,obj);
       $(".container-region-update").remove();
     }
     else{
       $(".container-region-update").remove();
       var prev=    "<input type=\"text\" class=\"update-region-prev\" placeholder=\"enter old region name\">"
       var next=    "<input type=\"text\" class=\"update-region-next\" placeholder=\"enter new region name\">"
-      var submit=  "<button class=\"btn-update\">Make a Region</button>";
+      var submit=  "<button class=\"btn-update\">Rename a Region</button>";
       $('.container-region').append($("<div class=\"container-region-update\">"+prev+next+submit+"</div>"));
     }
   });
@@ -67,7 +81,7 @@ $(document).ready(function(){
     $(".container-region").empty();
     console.log(e.currentTarget)
     var keyData = $('.create-region-make').val();
-    var data=JSON.parse(localStorage.getItem(keyData))
+    var data= getdata(keyData);//JSON.parse(localStorage.getItem(keyData))
     if(!Object.is(data,null)){
       $('.container-region').append('<div class="display-data-item" data-keyValue="'+ keyData+'">'+keyData+'</div>');
       fetchelements(data,keyData);
@@ -113,6 +127,7 @@ $(document).ready(function(){
 //  III) delete a world (check)
 
 // 2) CRUD for regions
-//      I)    access to regions (check)
-//      II)   delete a region
-//      III)  update a region
+//      I)     add regions (check)
+//      II)    access to regions (check)
+//      III)   delete a region 
+//      IV)    update a region
