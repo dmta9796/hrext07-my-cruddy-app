@@ -50,18 +50,19 @@ $(document).ready(function(){
       localStorage.setItem(worldKey, JSON.stringify(obj));
       var displayText = worldKey + ' | ' + obj[regionName];
       console.log(displayText);
-      $('.container-region').html('<div class="display-data-item" data-keyValue="'+ regionName+'">'+worldKey+'</div>');
+      $(".container-region-make").remove();
+      $('.container-region').append('<div class="display-data-item" data-keyValue="'+ worldKey+'">'+regionName+'</div>');
       $('.input-key').val('');
       $('.input-value').val('');
     }
   });
 
-  $('.container-region').on('click', '.display-data-item', function(e){
-    console.log("test")
+  $('.container-region').on('mouseenter', '.display-data-item', function(e){
+    $("container-region").append()
   })
 
 
-  $('.container-region').on('dblclick', '.display-data-item', function(e){
+  $('.container-region').on('click', '.display-data-item', function(e){
     //console.log(e.currentTarget.dataset.keyvalue);
     var keyData = e.currentTarget.dataset.keyvalue;
     //console.log($(keyData).children());
@@ -83,6 +84,11 @@ $(document).ready(function(){
   $('.btn-delete').click(function(e){
     var keyData = $('.create-region-make').val();
     localStorage.removeItem(keyData);
+    console.log($(".display-data-item").html())
+    var item=$(".display-data-item");
+    if(item.html()===keyData){
+
+    }
     $('.container-world').text('');
   });
 
@@ -91,3 +97,15 @@ $(document).ready(function(){
 
 //two types of containers needed
 // character and world/region/town/city
+
+
+//day 1
+// figurring out the delegation took twice as long as expected
+// made overall world text and adds to object database.
+
+//day 2 
+// goal: have update,delete,read for world and individual regions
+// 1) C.R.U.D. for world 
+//  I)   edit create to not override world.
+//  II)  read for world (check)
+//  III) delete a world (check)
