@@ -50,14 +50,18 @@ $(document).ready(function(){
       localStorage.setItem(worldKey, JSON.stringify(obj));
       var displayText = worldKey + ' | ' + obj[regionName];
       console.log(displayText);
-      $('.container-region').html('<div class="display-data-item" data-keyValue="'+ worldKey+'">'+worldKey+'</div>');
+      $('.container-region').html('<div class="display-data-item" data-keyValue="'+ regionName+'">'+worldKey+'</div>');
       $('.input-key').val('');
       $('.input-value').val('');
     }
   });
 
-
   $('.container-region').on('click', '.display-data-item', function(e){
+    console.log("test")
+  })
+
+
+  $('.container-region').on('dblclick', '.display-data-item', function(e){
     //console.log(e.currentTarget.dataset.keyvalue);
     var keyData = e.currentTarget.dataset.keyvalue;
     //console.log($(keyData).children());
@@ -76,8 +80,9 @@ $(document).ready(function(){
   });
 
   // delete world
-  $('.btn-clear').click(function(){
-    localStorage.clear();
+  $('.btn-delete').click(function(e){
+    var keyData = $('.create-region-make').val();
+    localStorage.removeItem(keyData);
     $('.container-world').text('');
   });
 
