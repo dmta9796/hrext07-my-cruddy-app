@@ -26,11 +26,12 @@ $(document).ready(function(){
     console.log(e);
     var keyData = $('.create-region-make').val();
     var valueData = localStorage.getItem(keyData)
-    if(Object.is(valueData,null)){
+    //console.log(e.currentTarget.parentElement.className==="container-form");
+    if(e.currentTarget.parentElement.className==="container-form"){//Object.is(valueData,null)){
       valueData={}
       localStorage.setItem(keyData, JSON.stringify(valueData));
       var displayText = keyData + ' | ' + localStorage.getItem(keyData);
-      console.log(displayText);
+      //console.log(displayText);
       $('.container-region').html('<div class="display-data-item" data-keyValue="'+ keyData +'">'+keyData+'</div>');
       $('.input-key').val('');
       $('.input-value').val('');
@@ -38,10 +39,10 @@ $(document).ready(function(){
     else{
       var regionName = $('.create-region-name').val();
       var regionDesc = $('.create-region-desc').val();
-      console.log(regionName);
+      //console.log(regionName);
       // write to db
-      console.log(e.currentTarget.parentElement.parentElement)
-      var worldKey=e.currentTarget.parentElement.parentElement.childNodes[0].dataset.keyvalue;   //fetch the world
+      //console.log(e.currentTarget.parentElement.parentElement)
+      var worldKey=e.currentTarget.parentElement.parentElement.childNodes[0].dataset.keyvalue;   //fetch the world key value
       var obj=JSON.parse(localStorage.getItem(worldKey));
       obj[regionName]=regionDesc;
       console.log(regionName,Object.entries(obj));
