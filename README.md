@@ -26,7 +26,7 @@ project ideas
 - recipe cookbook. (append a rating to recipe)
 - data visualizer of some sort.
 	- would need a dataset api. 
-	- could visualize weather perhaps.  
+	- could visualize weather perhaps.
 	-
 - storyboard management for worldbuilding?
 - 

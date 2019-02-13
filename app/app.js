@@ -18,6 +18,18 @@ var removedata=function(key){
 }
 
 
+//helper functions for objec manupulation;
+var getdesc=function(obj,key){
+  return obj[key];
+}
+var deleteitem=function(obj,key){
+  delete obj[key];
+}
+var updateitem=function(obj,key,val){
+  obj[key]=val;
+}
+
+
 //helper function to fetch data from object
  var fetchelements=function(data,keyData){
   //onsole.log(data);
@@ -28,7 +40,7 @@ var removedata=function(key){
 
 $(document).ready(function(){
   var worldKey;
-  $('.container-main').on('click','.btn-add-place', function(e){
+  $('.container-form').on('click','.btn-add-place', function(e){
     //console.log(e);
     var keyData = $('.create-region-make').val();
     var valueData = getdata(keyData); //localStorage.getItem(keyData);
@@ -58,7 +70,7 @@ $(document).ready(function(){
       $('.input-value').val('');
     }
   });
-  $('.container-main').on("click",".btn-update",function(e){
+  $('.container-form').on("click",".btn-update",function(e){
     console.log(e.currentTarget.parentElement.className);
     var parentClass= e.currentTarget.parentElement.className;
     if(parentClass==="container-region-update"){
@@ -77,7 +89,7 @@ $(document).ready(function(){
       $('.container-region').append($("<div class=\"container-region-update\">"+prev+next+submit+"</div>"));
     }
   });
-  $('.container-main').on("click",".btn-select",function(e){
+  $('.container-form').on("click",".btn-select",function(e){
     $(".container-region").empty();
     console.log(e.currentTarget)
     var keyData = $('.create-region-make').val();
@@ -87,15 +99,15 @@ $(document).ready(function(){
       fetchelements(data,keyData);
     }
   });
-  $('.container-region').on('click', '.display-data-item', function(e){
-    var keyData = e.currentTarget.dataset.keyvalue;
-    var name=    "<input type=\"text\" class=\"create-region-name\" placeholder=\"enter region name\">"
-    var desc=    "<input type=\"text\" class=\"create-region-desc\" placeholder=\"enter region description\">"
-    var type=    "<input type=\"text\" class=\"create-region-type\" placeholder=\"enter region type\">"
-    var submit=  "<button class=\"btn-add-place\">Make a Region</button>";
-    $(submit).appendTo(".container-region-make");
-    $(".container-region-make").remove();
-    $('.container-region').append($("<div class=\"container-region-make\">"+name+desc+submit+"</div>"));
+  $('.container-region').on('click','.display-data-item',function(e){
+    var addbtn=    "<button class=\"btn-add-place\">add a subregion</button>";
+    var updatebtn= "<button class=\"btn-update\"> rename Region</button>";
+    var removebtn= "<button class=\"btn-delete\">remove a Region</button>";
+    var viewbtn= "<button class=\"btn-select\">view region description</button>";
+    $(".container-region-menu").remove();
+    //console.log(e.currentTarget);
+    $(e.currentTarget).append($("<div class=\"container-region-menu\">"+addbtn+updatebtn+removebtn+viewbtn+"</div>"))
+
   });
   $('.btn-delete').click(function(e){
     var keyData = $('.create-region-make').val();
@@ -106,6 +118,43 @@ $(document).ready(function(){
 
     }
     $('.container-world').text('');
+  });
+
+  //manu[ulate object buttons
+  $('.container-main').on('click',".btn-add-place" ,function(e){//'.display-data-item', function(e){
+    var keyData = e.currentTarget.dataset.keyvalue;
+    var name=    "<input type=\"text\" class=\"create-region-name\" placeholder=\"enter region name\">"
+    var desc=    "<input type=\"text\" class=\"create-region-desc\" placeholder=\"enter region description\">"
+    var type=    "<input type=\"text\" class=\"create-region-type\" placeholder=\"enter region type\">"
+    var submit=  "<button class=\"btn-add-place\">Make a Region</button>";
+    $(submit).appendTo(".container-region-make");
+    $(".container-region-make").remove();
+    $('.container-region').append($("<div class=\"container-region-make\">"+name+desc+submit+"</div>"));
+  });
+  $('.container-region').on('click',".btn-select" ,function(e){
+    console.log(e.currentTarget.parentElement.parentElement.dataset.keyvalue);
+    var region= e.currentTarget.parentElement.parentElement.childNodes[0].textContent;
+    worldKey=e.currentTarget.parentElement.parentElement.dataset.keyvalue
+    var obj=getdata(worldKey);
+    var desc=obj[region];
+    $(".container-region-menu").remove();
+    $(".container-region").append("<div class=\"description\">"+desc+"</div>")
+  });
+  $('.container-main').on('click',".btn-update" ,function(e){
+    console.log(e.currentTarget);
+    var region= e.currentTarget.parentElement
+    var region= e.currentTarget.parentElement.parentElement.childNodes[0].textContent;
+    worldKey=e.currentTarget.parentElement.parentElement.dataset.keyvalue
+    var obj=getdata(worldKey);
+    console.log(obj[region]);
+  });
+  $('.container-main').on('click',".btn-remove" ,function(e){
+    console.log(e.currentTarget);
+    var region= e.currentTarget.parentElement
+  });
+
+  $(".container-region").on("click",".description",function(e){
+    $(e.currentTarget).remove();
   });
 
 });
@@ -129,5 +178,12 @@ $(document).ready(function(){
 // 2) CRUD for regions
 //      I)     add regions (check)
 //      II)    access to regions (check)
-//      III)   delete a region 
-//      IV)    update a region
+//      III)   delete a region (work in progress)
+//      IV)    update a region (work in progress)
+
+
+// I need to lower the scope of the problem 
+//(seems like I was overly ambitious or didn't organize the data correctly)
+
+
+//day 3
