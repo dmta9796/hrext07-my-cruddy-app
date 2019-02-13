@@ -137,8 +137,10 @@ $(document).ready(function(){
     worldKey=e.currentTarget.parentElement.parentElement.dataset.keyvalue
     var obj=getdata(worldKey);
     var desc=obj[region];
-    $(".container-region-menu").remove();
     $(".container-region").append("<div class=\"description\">"+desc+"</div>")
+    $(".container-region-menu").remove();
+    //e.preventDefault();
+    e.stopPropagation();
   });
   $('.container-main').on('click',".btn-update" ,function(e){
     console.log(e.currentTarget);
@@ -146,11 +148,23 @@ $(document).ready(function(){
     var region= e.currentTarget.parentElement.parentElement.childNodes[0].textContent;
     worldKey=e.currentTarget.parentElement.parentElement.dataset.keyvalue
     var obj=getdata(worldKey);
-    console.log(obj[region]);
+    var desc=obj[region];
   });
-  $('.container-main').on('click',".btn-remove" ,function(e){
-    console.log(e.currentTarget);
-    var region= e.currentTarget.parentElement
+  $('.container-region').on('click',".btn-delete" ,function(e){
+    var region= e.currentTarget.parentElement.parentElement.childNodes[0].textContent;
+    var key=e.currentTarget.parentElement.parentElement.dataset.keyvalue
+    var obj=getdata(key);
+
+    delete obj[region];
+
+    putdata(key,obj);
+    if(region!==key){
+      $(e.currentTarget.parentElement.parentElement).remove();
+    }
+    else{
+      $(e.currentTarget.parentElement).remove();
+    }
+    e.stopPropagation();
   });
 
   $(".container-region").on("click",".description",function(e){
