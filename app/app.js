@@ -69,6 +69,7 @@ $(document).ready(function(){
       $('.input-key').val('');
       $('.input-value').val('');
     }
+    e.stopPropagation();
   });
   $('.container-form').on("click",".btn-update",function(e){
     console.log(e.currentTarget.parentElement.className);
@@ -86,7 +87,8 @@ $(document).ready(function(){
       var prev=    "<input type=\"text\" class=\"update-region-prev\" placeholder=\"enter old region name\">"
       var next=    "<input type=\"text\" class=\"update-region-next\" placeholder=\"enter new region name\">"
       var submit=  "<button class=\"btn-update\">Rename a Region</button>";
-      $('.container-region').append($("<div class=\"container-region-update\">"+prev+next+submit+"</div>"));
+      $('.container-form').append($("<div class=\"container-region-update\">"+prev+next+submit+"</div>")); //want to update in form
+      e.stopPropagation()
     }
   });
   $('.container-form').on("click",".btn-select",function(e){
@@ -132,24 +134,35 @@ $(document).ready(function(){
     $('.container-region').append($("<div class=\"container-region-make\">"+name+desc+submit+"</div>"));
   });
   $('.container-region').on('click',".btn-select" ,function(e){
-    console.log(e.currentTarget.parentElement.parentElement.dataset.keyvalue);
+    console.log(e.currentTarget.parentElement.parentElement.parentElement);
     var region= e.currentTarget.parentElement.parentElement.childNodes[0].textContent;
     worldKey=e.currentTarget.parentElement.parentElement.dataset.keyvalue
     var obj=getdata(worldKey);
     var desc=obj[region];
-    $(".container-region").append("<div class=\"description\">"+desc+"</div>")
+    $(".description-holder").append("<div class=\"description\">"+desc+"</div>")
     $(".container-region-menu").remove();
     //e.preventDefault();
     e.stopPropagation();
   });
-  $('.container-main').on('click',".btn-update" ,function(e){
-    console.log(e.currentTarget);
-    var region= e.currentTarget.parentElement
-    var region= e.currentTarget.parentElement.parentElement.childNodes[0].textContent;
-    worldKey=e.currentTarget.parentElement.parentElement.dataset.keyvalue
-    var obj=getdata(worldKey);
-    var desc=obj[region];
+  $('.container-region').on('click',".btn-update" ,function(e){
+    console.log(e.currentTarget.parentElement);
+    //$(e.currentTarget.parentElement).remove();
+    //var region= e.currentTarget.parentElement
+    //var region= e.currentTarget.parentElement.parentElement.childNodes[0].textContent;
+    //worldKey=e.currentTarget.parentElement.parentElement.dataset.keyvalue
+    //var obj=getdata(worldKey);
+    //var desc=obj[region];
+
+    var text= "<input type= \"text\">"
+    var btn = "<button class= \"btn-update\">Submit</button>"
+    $(e.currentTarget.parentElement.parentElement).append("<div class= \"update-obj\">"+text+btn+"</div>")
+    $(e.currentTarget.parentElement).remove();
+    e.stopPropagation();
+
   });
+  $(".update-obj").on('click','.btn-update',function(e){
+    console.log("hi")
+  });  
   $('.container-region').on('click',".btn-delete" ,function(e){
     var region= e.currentTarget.parentElement.parentElement.childNodes[0].textContent;
     var key=e.currentTarget.parentElement.parentElement.dataset.keyvalue
@@ -167,7 +180,8 @@ $(document).ready(function(){
     e.stopPropagation();
   });
 
-  $(".container-region").on("click",".description",function(e){
+  // remove description
+  $(".description-holder").on("click",".description",function(e){
     $(e.currentTarget).remove();
   });
 
@@ -201,3 +215,6 @@ $(document).ready(function(){
 
 
 //day 3
+// I need to bring the scope down to just add stuff to the database.
+// found tons of bugs concerning dom manupulation. 
+// for the descriptions I should a seperate box to handle description content.
