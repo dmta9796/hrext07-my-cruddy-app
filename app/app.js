@@ -139,23 +139,18 @@ $(document).ready(function(){
     worldKey=e.currentTarget.parentElement.parentElement.dataset.keyvalue
     var obj=getdata(worldKey);
     var desc=obj[region];
-    $(".description-holder").append("<div class=\"description\">"+desc+"</div>")
+    $(".description-holder").append("<div class=\"description\">"+region+":"+desc+"</div>")
     $(".container-region-menu").remove();
     //e.preventDefault();
     e.stopPropagation();
   });
   $('.container-region').on('click',".btn-update" ,function(e){
-    console.log(e.currentTarget.parentElement);
-    //$(e.currentTarget.parentElement).remove();
-    //var region= e.currentTarget.parentElement
-    //var region= e.currentTarget.parentElement.parentElement.childNodes[0].textContent;
-    //worldKey=e.currentTarget.parentElement.parentElement.dataset.keyvalue
-    //var obj=getdata(worldKey);
-    //var desc=obj[region];
-
-    var text= "<input type= \"text\">"
+    console.log(e.currentTarget.parentElement.parentElement.childNodes[0].textContent);
+    var region=e.currentTarget.parentElement.parentElement.childNodes[0].textContent
+    var text= "<input type= \"text\" class=\"text\">"
     var btn = "<button class= \"btn-update\">Submit</button>"
-    $(e.currentTarget.parentElement.parentElement).append("<div class= \"update-obj\">"+text+btn+"</div>")
+    var world= e.currentTarget.parentElement.parentElement.parentElement.childNodes[0].textContent;
+    $(".update-holder").append("<div class= \"update-obj\" data-keyValue=\""+region+"\" data-world =\""+world+"\">"+text+btn+"</div>")
     $(e.currentTarget.parentElement).remove();
     e.stopPropagation();
 
@@ -184,6 +179,19 @@ $(document).ready(function(){
   $(".description-holder").on("click",".description",function(e){
     $(e.currentTarget).remove();
   });
+  $(".update-holder").on("click",".btn-update",function(e){
+    console.log(e.currentTarget.parentElement.dataset.keyvalue)  //need to fetch object
+    console.log(e.currentTarget.parentElement.dataset.world)
+    var region= e.currentTarget.parentElement.dataset.keyvalue;
+    var world=e.currentTarget.parentElement.dataset.world;
+    var newregion= $(".text").val();
+    var obj=getdata(world);
+    var desc=obj[region];
+    delete obj[region];
+    obj[newregion]=desc;
+    putdata(world,obj);
+    $(e.currentTarget.parentElement).remove();
+  })
 
 });
 
