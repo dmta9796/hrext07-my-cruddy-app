@@ -8,8 +8,8 @@ body{
 	justify-content: flex-start;
 	flex-wrap: wrap;
 	width:600px;
-	background-color: aqua;
-
+	background-color: lightsalmon;
+	box-shadow: 8px 3px 3px black
 }
 header{
 	display: flex;
@@ -32,6 +32,8 @@ header{
 	//border: 5px solid lightgray;
 	//border-style: groove;
 	box-shadow: 7px 3px 10px black;
+	width:300px;
+	opacity: 0.85;
 }
 
 .container-menu{
@@ -39,18 +41,23 @@ header{
 	justify-content: space-between;
 	flex-wrap: wrap;
 	width: 600px;
+	background-color: black;
 }
 .btn-add-place{
 	width: 147px;
+	font-size:18px;
 }
 .btn-update{
 	width: 147px;
+	font-size:18px;
 }
 .btn-delete{
 	width: 147px;
+	font-size:18px;
 }
 .btn-select{
 	width: 147px;
+	font-size:18px;
 }
 
 
@@ -59,15 +66,42 @@ header{
 	/*height:100px;*/
 }
 
-.descritpion{
+.description{
+	display:flex;
+	width:300px;
+	justify-content:center;
+	flex-wrap:wrap;
+}
 
+.desc-text{
+	width:250px;
+	height:100px;
+	
 }
 
 .display-data-item{
 /* 	display: flex; */
-/* 	justify-content: flex-start; */
-/* 	flex-direction: column; */
+/* 	justify-content: center; */
+/*  	flex-direction: column; */
 	font-size:32px;
 	width:300px
+/*  	flex-wrap:wrap; */
+ 	opacity: 1.0;
 
+}
+.container-region-menu{
+/* 	display:flex; */
+	width:300px
+/* 	flex-direction:center; */
+/* 	justify-content:center */
+/* 	flex-direction:center; */
+}
+.create-region-make{
+	width:596px;
+}
+.region-make{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:center;
+	width:300px;
 }

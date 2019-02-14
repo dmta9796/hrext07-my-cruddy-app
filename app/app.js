@@ -74,7 +74,7 @@ $(document).ready(function(){
     e.stopPropagation();
   });
   $('.container-form').on("click",".btn-update",function(e){
-    console.log(e.currentTarget.parentElement.className);
+    //console.log(e.currentTarget.parentElement.className);
     var parentClass= e.currentTarget.parentElement.className;
     if(parentClass==="container-region-update"){
       var prev=$(".update-region-prev").val();
@@ -138,26 +138,29 @@ $(document).ready(function(){
     e.stopPropagation();
   });
   $(".add-holder").on('click','.btn-add-place',function(e){
-    console.log("hi")
+    //console.log("hi")
     var region=$(".create-region-name").val();
     var desc  =$(".create-region-desc").val();
-    var world = e.currentTarget.parentElement.dataset.world;
-    var obj=getdata(world);
-    obj[region]=desc;
-    putdata(world,obj);
-    $(".container-region").append('<div class="display-data-item" data-keyValue="'+ world+'">'+region+'</div>');
+    if(region!=="" && desc!==""){
+      var world = e.currentTarget.parentElement.dataset.world;
+      var obj=getdata(world);
+      obj[region]=desc;
+      putdata(world,obj);
+      $(".container-region").append('<div class="display-data-item" data-keyValue="'+ world+'">'+region+'</div>');
+    }
     $(".add-holder").empty();
     e.stopPropagation();
 
   })
   $('.container-region').on('click',".btn-select" ,function(e){
-    console.log(e.currentTarget.parentElement.parentElement.parentElement);
+    //console.log(e.currentTarget.parentElement.parentElement.parentElement);
     var region= e.currentTarget.parentElement.parentElement.childNodes[0].textContent;
     worldKey=e.currentTarget.parentElement.parentElement.dataset.keyvalue
     var obj=getdata(worldKey);
     var desc=obj[region];
     var btn = "<button class= \"btn-update\">Edit Description</button>"
-    var text= "<input type= \"text\" class= \"desc-text\" value=\""+desc+"\">"
+    //var text= "<input type= \"text\" class= \"desc-text\" value=\""+desc+"\">"
+    var text= "<textarea class= \"desc-text\">"+desc+"</textarea>"
     $(".description-holder").append("<div class=\"description\" data-region=\""+region+"\"data-world=\""+worldKey+"\">"+text+btn+"</div>")
     $(".container-region-menu").remove();
     //e.preventDefault();
@@ -208,19 +211,21 @@ $(document).ready(function(){
 
 
   $(".update-holder").on("click",".btn-update",function(e){
-    console.log(e.currentTarget.parentElement.dataset.keyvalue)  //need to fetch object
-    console.log(e.currentTarget.parentElement.dataset.world)
+    //console.log(e.currentTarget.parentElement.dataset.keyvalue)  //need to fetch object
+    //console.log(e.currentTarget.parentElement.dataset.world)
     var region= e.currentTarget.parentElement.dataset.keyvalue;
     var world=e.currentTarget.parentElement.dataset.world;
     var newregion= $(".text").val();
-    var obj=getdata(world);
-    var desc=obj[region];
-    delete obj[region];
-    obj[newregion]=desc;
-    putdata(world,obj);
-    $(".container-region").empty();
-    $('.container-region').append('<div class="display-data-item" data-keyValue="'+ world+'">'+world+'</div>');
-    fetchelements(obj,world);
+    if(newregion!==""){
+      var obj=getdata(world);
+      var desc=obj[region];
+      delete obj[region];
+      obj[newregion]=desc;
+      putdata(world,obj);
+      $(".container-region").empty();
+      $('.container-region').append('<div class="display-data-item" data-keyValue="'+ world+'">'+world+'</div>');
+      fetchelements(obj,world);
+    }
     $(e.currentTarget.parentElement).remove();
   })
 });
@@ -262,4 +267,6 @@ $(document).ready(function(){
 
 // day 4 
 // add feature to edit descriptions
+// finshed that quickly
 // need to call the program I have feature complete to do styling.
+// found out I need to change the input to textarea for the objective I'm looking for.
