@@ -105,7 +105,7 @@ $(document).ready(function(){
     var addbtn=    "<button class=\"btn-add-place\">add a subregion</button>";
     var updatebtn= "<button class=\"btn-update\"> rename Region</button>";
     var removebtn= "<button class=\"btn-delete\">remove a Region</button>";
-    var viewbtn= "<button class=\"btn-select\">view region description</button>";
+    var viewbtn= "<button class=\"btn-select\">edit region description</button>";
     $(".container-region-menu").remove();
     //console.log(e.currentTarget);
     $(e.currentTarget).append($("<div class=\"container-region-menu\">"+addbtn+updatebtn+removebtn+viewbtn+"</div>"))
@@ -154,7 +154,9 @@ $(document).ready(function(){
     worldKey=e.currentTarget.parentElement.parentElement.dataset.keyvalue
     var obj=getdata(worldKey);
     var desc=obj[region];
-    $(".description-holder").append("<div class=\"description\">"+region+":"+desc+"</div>")
+    var btn = "<button class= \"btn-update\">Edit Description</button>"
+    var text= "<input type= \"text\" class= \"desc-text\" value=\""+desc+"\">"
+    $(".description-holder").append("<div class=\"description\" data-region=\""+region+"\"data-world=\""+worldKey+"\">"+text+btn+"</div>")
     $(".container-region-menu").remove();
     //e.preventDefault();
     e.stopPropagation();
@@ -165,6 +167,9 @@ $(document).ready(function(){
     var text= "<input type= \"text\" class=\"text\">"
     var btn = "<button class= \"btn-update\">Submit</button>"
     var world= e.currentTarget.parentElement.parentElement.parentElement.childNodes[0].textContent;
+
+    //fetch description
+
     $(".update-holder").append("<div class= \"update-obj\" data-keyValue=\""+region+"\" data-world =\""+world+"\">"+text+btn+"</div>")
     $(e.currentTarget.parentElement).remove();
     e.stopPropagation();
@@ -188,9 +193,18 @@ $(document).ready(function(){
   });
 
   // remove description
-  $(".description-holder").on("click",".description",function(e){
-    $(e.currentTarget).remove();
+  $(".description-holder").on("click",".btn-update",function(e){
+    var world=e.currentTarget.parentElement.dataset.world;
+    var region=e.currentTarget.parentElement.dataset.region;
+    var obj=getdata(world);
+    var newdesc=$(e.currentTarget.parentElement.childNodes[0]).val();
+    obj[region]=newdesc;
+    putdata(world,obj);
+    $(e.currentTarget.parentElement).remove();
   });
+
+
+
   $(".update-holder").on("click",".btn-update",function(e){
     console.log(e.currentTarget.parentElement.dataset.keyvalue)  //need to fetch object
     console.log(e.currentTarget.parentElement.dataset.world)
@@ -207,7 +221,6 @@ $(document).ready(function(){
     fetchelements(obj,world);
     $(e.currentTarget.parentElement).remove();
   })
-
 });
 
 
@@ -241,8 +254,10 @@ $(document).ready(function(){
 // I need to bring the scope down to just add stuff to the database.
 // found tons of bugs concerning dom manupulation. 
 // for the descriptions I should a seperate box to handle description content.
-
+// new requirement of editing descriptions.
+//   replace the delete with the 
 
 
 // day 4 
+// add feature to edit descriptions
 // need to call the program I have feature complete to do styling.
