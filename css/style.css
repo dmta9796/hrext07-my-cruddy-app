@@ -105,3 +105,9 @@ header{
 	justify-content:center;
 	width:300px;
 }
+.update-obj{
+	display:flex;
+	width:300px;
+	justify-content:center;
+	flex-wrap:wrap;
+}
