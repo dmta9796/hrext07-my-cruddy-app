@@ -121,7 +121,7 @@ $(document).ready(function(){
     if(item.html()===keyData){
 
     }
-    $('.container-world').text('');
+    $('.container-region').empty();
   });
 
   //manu[ulate object buttons
