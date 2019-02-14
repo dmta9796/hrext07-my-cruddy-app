@@ -123,7 +123,7 @@ $(document).ready(function(){
   });
 
   //manu[ulate object buttons
-  $('.container-main').on('click',".btn-add-place" ,function(e){//'.display-data-item', function(e){
+  $('.container-region').on('click',".btn-add-place" ,function(e){//'.display-data-item', function(e){
     var keyData = e.currentTarget.dataset.keyvalue;
     var name=    "<input type=\"text\" class=\"create-region-name\" placeholder=\"enter region name\">"
     var desc=    "<input type=\"text\" class=\"create-region-desc\" placeholder=\"enter region description\">"
@@ -155,9 +155,6 @@ $(document).ready(function(){
     e.stopPropagation();
 
   });
-  $(".update-obj").on('click','.btn-update',function(e){
-    console.log("hi")
-  });  
   $('.container-region').on('click',".btn-delete" ,function(e){
     var region= e.currentTarget.parentElement.parentElement.childNodes[0].textContent;
     var key=e.currentTarget.parentElement.parentElement.dataset.keyvalue
@@ -190,6 +187,9 @@ $(document).ready(function(){
     delete obj[region];
     obj[newregion]=desc;
     putdata(world,obj);
+    $(".container-region").empty();
+    $('.container-region').append('<div class="display-data-item" data-keyValue="'+ world+'">'+world+'</div>');
+    fetchelements(obj,world);
     $(e.currentTarget.parentElement).remove();
   })
 
