@@ -1,17 +1,21 @@
 body{
 	display: flex;
 	justify-content: center;
+	background-color: beige;
 }
 .container-main{
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	flex-wrap: wrap;
 	width:600px;
+	background-color: aqua;
+
 }
 header{
 	display: flex;
 	width: 600px
-
+	height:200px;
+	font-size: 48px;
 	justify-content:center;
 }
 
@@ -21,9 +25,13 @@ header{
 
 .container-region{
 	display: flex;
-	background-color: gray;
+	background-color: lightgray;
 	flex-direction: column;
-	justify-content: flex-start;
+	justify-content: center;
+	align-items: center;
+	//border: 5px solid lightgray;
+	//border-style: groove;
+	box-shadow: 7px 3px 10px black;
 }
 
 .container-menu{
@@ -56,7 +64,10 @@ header{
 }
 
 .display-data-item{
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
+/* 	display: flex; */
+/* 	justify-content: flex-start; */
+/* 	flex-direction: column; */
+	font-size:32px;
+	width:300px
+
 }
