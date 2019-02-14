@@ -1,0 +1,62 @@
+body{
+	display: flex;
+	justify-content: center;
+}
+.container-main{
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	width:600px;
+}
+header{
+	display: flex;
+	width: 600px
+
+	justify-content:center;
+}
+
+.container-form{
+	width: 600px;
+}
+
+.container-region{
+	display: flex;
+	background-color: gray;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.container-menu{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	width: 600px;
+}
+.btn-add-place{
+	width: 147px;
+}
+.btn-update{
+	width: 147px;
+}
+.btn-delete{
+	width: 147px;
+}
+.btn-select{
+	width: 147px;
+}
+
+
+.create-region-make{
+	width:600px;
+	/*height:100px;*/
+}
+
+.descritpion{
+
+}
+
+.display-data-item{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}

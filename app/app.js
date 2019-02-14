@@ -41,9 +41,11 @@ var updateitem=function(obj,key,val){
 $(document).ready(function(){
   var worldKey;
   $('.container-form').on('click','.btn-add-place', function(e){
-    //console.log(e);
     var keyData = $('.create-region-make').val();
-    var valueData = getdata(keyData); //localStorage.getItem(keyData);
+    var valueData = getdata(keyData);
+    if(!Object.is(valueData,null)){
+      return 1;
+    }
     if(e.currentTarget.parentElement.className==="container-form"){
         valueData={}
       putdata(keyData,valueData);//localStorage.setItem(keyData, JSON.stringify(valueData));
@@ -81,6 +83,7 @@ $(document).ready(function(){
       removedata(prev);// localStorage.removeItem(prev);
       putdata(next,obj);//localStorage.setItem(next,obj);
       $(".container-region-update").remove();
+      $(".container-region").empty();
     }
     else{
       $(".container-region-update").remove();
@@ -93,7 +96,6 @@ $(document).ready(function(){
   });
   $('.container-form').on("click",".btn-select",function(e){
     $(".container-region").empty();
-    console.log(e.currentTarget)
     var keyData = $('.create-region-make').val();
     var data= getdata(keyData);//JSON.parse(localStorage.getItem(keyData))
     if(!Object.is(data,null)){
