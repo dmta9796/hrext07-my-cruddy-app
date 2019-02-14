@@ -124,15 +124,30 @@ $(document).ready(function(){
 
   //manu[ulate object buttons
   $('.container-region').on('click',".btn-add-place" ,function(e){//'.display-data-item', function(e){
-    var keyData = e.currentTarget.dataset.keyvalue;
+    var keyData = e.currentTarget.parentElement.parentElement.dataset.keyvalue
     var name=    "<input type=\"text\" class=\"create-region-name\" placeholder=\"enter region name\">"
     var desc=    "<input type=\"text\" class=\"create-region-desc\" placeholder=\"enter region description\">"
     var type=    "<input type=\"text\" class=\"create-region-type\" placeholder=\"enter region type\">"
     var submit=  "<button class=\"btn-add-place\">Make a Region</button>";
     $(submit).appendTo(".container-region-make");
     $(".container-region-make").remove();
-    $('.container-region').append($("<div class=\"container-region-make\">"+name+desc+submit+"</div>"));
+    $('.add-holder').append($("<div class=\"region-make\" data-world=\""+keyData+"\">"+name+desc+submit+"</div>"));
+    $('.container-region-menu').remove();
+    e.stopPropagation();
   });
+  $(".add-holder").on('click','.btn-add-place',function(e){
+    console.log("hi")
+    var region=$(".create-region-name").val();
+    var desc  =$(".create-region-desc").val();
+    var world = e.currentTarget.parentElement.dataset.world;
+    var obj=getdata(world);
+    obj[region]=desc;
+    putdata(world,obj);
+    $(".container-region").append('<div class="display-data-item" data-keyValue="'+ world+'">'+region+'</div>');
+    $(".add-holder").empty();
+    e.stopPropagation();
+
+  })
   $('.container-region').on('click',".btn-select" ,function(e){
     console.log(e.currentTarget.parentElement.parentElement.parentElement);
     var region= e.currentTarget.parentElement.parentElement.childNodes[0].textContent;
@@ -226,3 +241,8 @@ $(document).ready(function(){
 // I need to bring the scope down to just add stuff to the database.
 // found tons of bugs concerning dom manupulation. 
 // for the descriptions I should a seperate box to handle description content.
+
+
+
+// day 4 
+// need to call the program I have feature complete to do styling.
